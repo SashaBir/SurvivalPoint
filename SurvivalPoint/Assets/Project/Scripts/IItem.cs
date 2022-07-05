@@ -2,7 +2,9 @@
 
 public interface IItem
 {
-    GameObject SelfGameObject { get; }
+    GameObject Prefab { get; }
     
     Sprite Icon { get; }
+
+    void Collect();
 }

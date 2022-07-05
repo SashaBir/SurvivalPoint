@@ -13,6 +13,8 @@ public class Inventory : IInventory
 
     public void Add(IItem item)
     {
+        item.Collect();
+        
         _items.Add(item);
     }
 

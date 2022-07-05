@@ -3,3 +3,7 @@ SurvivalPoint/ProjectSettings/EditorBuildSettings.asset
 *.asset
 *.meta
 *.json
+*.meta
+*.asset
+*.asset
+*.asset

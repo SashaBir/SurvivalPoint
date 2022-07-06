@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Stick : MonoBehaviour, IItem
+public class Apple : MonoBehaviour, IItem
 {
-    public GameObject Prefab => gameObject;
+    public GameObject Prefab { get; }
     
     public Sprite Icon { get; }
     

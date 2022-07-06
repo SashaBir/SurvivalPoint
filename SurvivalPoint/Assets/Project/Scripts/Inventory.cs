@@ -4,13 +4,15 @@ using System.Linq;
 
 public class Inventory : IInventory
 {
+    public event Action<IItem> Action;
+    
     private readonly IList<IItem> _items;
-
+    
     public Inventory(int capacity = 0)
     {
         _items = new List<IItem>(capacity);
     }
-
+    
     public void Add(IItem item)
     {
         item.Collect();

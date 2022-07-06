@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    private Camera _camera;
-    
-    private void Awake()
-    {
-        _camera = Camera.main;
-    }
+    [SerializeField] private ForceMode2D _forceMode;
 
-    public void Shoot(Vector2 targetOnScreen)
+    public void Shoot(IShootable shootable, Vector2 target)
     {
-        Vector2 target = _camera.ScreenToWorldPoint(targetOnScreen);
-        Vector2 direction = (target - (Vector2)transform.position).normalized;
+        Rigidbody2D rigidbody = shootable.SelfRigidbody;
+        float lenght = shootable.Lenght;
+
+        Vector2 direction = target - rigidbody.position;
+        float force = Calculator.GetForceWithMass(rigidbody.mass, lenght, rigidbody.gravityScale);
+        
+        rigidbody.AddForce(direction.normalized * force, _forceMode);
         
         Debug.Log($"Shoot to {direction} by {gameObject.name}.");
     }

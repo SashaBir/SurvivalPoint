@@ -1,22 +1,25 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using Zenject;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    [Header("Gameplay")]
     [SerializeField] private Movement _movement;
     [SerializeField] private Shooting _shooting;
-    
-    private readonly IInventory _inventory = new Inventory();
+
+    [Header("Ui")] 
+    [SerializeField] private UiInventory _uiInventory;
+
+    private IInventory _inventory;
     private PlayerInputSystem _playerInputSystem;
 
     [Inject]
-    private void Construct(PlayerInputSystem playerInputSystem)
+    private void Construct(IInventory inventory, PlayerInputSystem playerInputSystem)
     {
+        _inventory = inventory;
         _playerInputSystem = playerInputSystem;
     }
 
@@ -34,8 +37,18 @@ public class Player : MonoBehaviour
 
         _playerInputSystem.Player.Fire.performed += _ =>
         {
-            Vector2 target = Mouse.current.position.ReadValue();
-            _shooting.Shoot(target);
+            IShootable shootable = _uiInventory.Current.ItemConvert<IShootable>();
+            if (shootable is null)
+            {
+                return;
+            }
+            
+            shootable = _uiInventory.TakeCurrent().ItemConvert<IShootable>();
+
+            Vector2 targetOnScreen = Mouse.current.position.ReadValue();
+            Vector2 target = Camera.main.ScreenToWorldPoint(targetOnScreen);
+            
+            _shooting.Shoot(shootable, target);
         };
         
         _playerInputSystem.Enable();

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(IExecutorLastAction))]
 public class ItemDistributor : MonoBehaviour
 {
     [Header("Collection")]
@@ -9,15 +10,21 @@ public class ItemDistributor : MonoBehaviour
     [Header("Scatter")]
     [SerializeField, Range(0, 1)] private float _ratio;
     [SerializeField] private float _radius;
-    
-    private void OnDisable()
+
+    private IExecutorLastAction _executorLastAction;
+
+    private void Awake()
     {
-        if (CanScatter == false)
+        _executorLastAction = GetComponent<IExecutorLastAction>();
+        _executorLastAction.ExecutableBeforeDestroyed = () =>
         {
-            return;
-        }
+            if (CanScatter == false)
+            {
+                return;
+            }
         
-        Scatter();
+            Scatter();
+        };
     }
 
     private bool CanScatter => UnityEngine.Random.Range(0f, _ratio) <= _ratio;

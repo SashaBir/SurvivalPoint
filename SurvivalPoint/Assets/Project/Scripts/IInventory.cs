@@ -2,11 +2,14 @@
 
 public interface IInventory<T>
 {
+
     uint Lenght { get; set; }
 
     uint Fullness { get; }
 
     bool IsEmpty => Fullness == 0 && Lenght != 0;
+
+    bool IsExist(T item);
     
     event Action<T> OnAdded; 
     

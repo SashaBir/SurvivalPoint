@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
 
 public class UiInventory : MonoBehaviour
 {
-    [SerializeField] private Button[] _items;
-    [SerializeField] private SelectionItem _selectionItem;
+    [SerializeField] private SelectionColorItem _selectionColorItem;
+    [SerializeField] private ItemCellCollection _itemCellCollection;
     
     private IInventory<IItem> _inventory;
 
@@ -21,7 +21,8 @@ public class UiInventory : MonoBehaviour
         _inventory.OnAdded += Add;
         _inventory.OnRemoved += Remove;
         
-        _selectionItem.Enable();
+        _selectionColorItem.Enable();
+        _itemCellCollection.Enable();
     }
 
     private void OnDisable()
@@ -29,7 +30,8 @@ public class UiInventory : MonoBehaviour
         _inventory.OnAdded -= Add;
         _inventory.OnRemoved -= Remove;
         
-        _selectionItem.Disable();
+        _selectionColorItem.Disable();
+        _itemCellCollection.Disable();
     }
 
     public IItem Current { get; private set; }
@@ -41,7 +43,7 @@ public class UiInventory : MonoBehaviour
 
     private void Add(IItem item)
     {
-        _items[0].image.sprite = item.Icon;
+        _itemCellCollection.Add(item);
     }
     
     private void Remove(IItem item)

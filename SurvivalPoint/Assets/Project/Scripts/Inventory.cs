@@ -17,12 +17,20 @@ public class Inventory : IInventory<IItem>
         _lenght = (uint)lenght;
         _items = new List<IItem>(lenght);
     }
-
+    
     public uint Fullness { get; private set; } = 0;
 
+    public bool IsExist(IItem item)
+    {
+        return _items.Contains(item);
+    }
+    
     public uint Lenght
     {
-        get { return _lenght; }
+        get
+        {
+            return _lenght;
+        }
         set
         {
             if (_lenght > value)
@@ -51,9 +59,8 @@ public class Inventory : IInventory<IItem>
 
         Fullness++;
 
-        OnAdded.Invoke(item);
-
         _items.Add(item);
+        OnAdded.Invoke(item);
         item.Collect();
     }
 
@@ -69,16 +76,15 @@ public class Inventory : IInventory<IItem>
             return;
         }
 
-        Fullness--;
-
         if (_items.Contains(item) == false)
         {
             throw new Exception("Item is not exists!");
         }
-
-        _items.Remove(item);
+        
+        Fullness--;
 
         OnRemoved.Invoke(item);
+        _items.Remove(item);
     }
 
     public T Get<T>() where T : class

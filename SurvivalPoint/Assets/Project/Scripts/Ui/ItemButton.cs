@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +6,7 @@ using UnityEngine.UI;
 public class ItemButton
 {
     [SerializeField] private Button _button;
-
+    
     public Color Color
     {
         set

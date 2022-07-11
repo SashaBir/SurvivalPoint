@@ -5,7 +5,7 @@ using System.Linq;
 public class Inventory : IInventory<IItem>
 {
     public event Action<IItem> OnAdded = delegate { };
-    
+
     public event Action<IItem> OnRemoved = delegate { };
 
     private readonly IList<IItem> _items;
@@ -17,14 +17,12 @@ public class Inventory : IInventory<IItem>
         _lenght = (uint)lenght;
         _items = new List<IItem>(lenght);
     }
-    
+
     public uint Fullness { get; private set; } = 0;
-    
-    public uint Lenght {
-        get
-        {
-            return _lenght;
-        }
+
+    public uint Lenght
+    {
+        get { return _lenght; }
         set
         {
             if (_lenght > value)
@@ -34,7 +32,7 @@ public class Inventory : IInventory<IItem>
                     Remove(_items[i]);
                 }
             }
-            
+
             _lenght = value;
         }
     }
@@ -45,16 +43,16 @@ public class Inventory : IInventory<IItem>
         {
             return;
         }
-        
+
         if (_lenght <= Fullness)
         {
             return;
         }
 
         Fullness++;
-        
+
         OnAdded.Invoke(item);
-        
+
         _items.Add(item);
         item.Collect();
     }
@@ -65,24 +63,24 @@ public class Inventory : IInventory<IItem>
         {
             return;
         }
-        
+
         if (Fullness == 0)
         {
             return;
         }
 
         Fullness--;
-        
+
         if (_items.Contains(item) == false)
         {
             throw new Exception("Item is not exists!");
         }
 
         _items.Remove(item);
-        
+
         OnRemoved.Invoke(item);
     }
-    
+
     public T Get<T>() where T : class
     {
         return _items.FirstOrDefault(i => i is T) as T;

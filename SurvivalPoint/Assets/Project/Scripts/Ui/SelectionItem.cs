@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class SelectionItem : MonoBehaviour
+[Serializable]
+public class SelectionItem
 {
     [Header("Buttons")]
     [SerializeField] private ItemButton[] _itemButtons;
@@ -9,7 +11,7 @@ public class SelectionItem : MonoBehaviour
     [SerializeField] private Color _selected;
     [SerializeField] private Color _unselected;
 
-    private void OnEnable()
+    public void Enable()
     {
         foreach (var i in _itemButtons)
         {
@@ -29,7 +31,7 @@ public class SelectionItem : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         foreach (var itemButton in _itemButtons)
         {

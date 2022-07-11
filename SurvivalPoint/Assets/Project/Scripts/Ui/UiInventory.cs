@@ -6,6 +6,7 @@ using Zenject;
 public class UiInventory : MonoBehaviour
 {
     [SerializeField] private Button[] _items;
+    [SerializeField] private SelectionItem _selectionItem;
     
     private IInventory<IItem> _inventory;
 
@@ -15,16 +16,20 @@ public class UiInventory : MonoBehaviour
         _inventory = inventory;
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         _inventory.OnAdded += Add;
         _inventory.OnRemoved += Remove;
+        
+        _selectionItem.Enable();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _inventory.OnAdded -= Add;
         _inventory.OnRemoved -= Remove;
+        
+        _selectionItem.Disable();
     }
 
     public IItem Current { get; private set; }

@@ -25,27 +25,27 @@ public class ItemCellCollection
         }
     }
 
-    public void Add(IItemProvider itemProvider)
+    public void Add(Item item)
     {
         var itemCell = _itemCells
             .Where(i => i.IsEmpty == false)
-            .FirstOrDefault(i => i.ItemSlot.Item.ItemType == itemProvider.Item.ItemType);
+            .FirstOrDefault(i => i.ItemSlot.Item.Type == item.Type);
         
-        Action<IItemProvider> action = itemCell == null ? AddNew : AddExisting;
-        action.Invoke(itemProvider);
+        Action<Item> action = itemCell == null ? AddNew : AddExisting;
+        action.Invoke(item);
     }
 
-    public void AddNew(IItemProvider itemProvider)
+    public void AddNew(Item item)
     {
         var itemCell = _itemCells.FirstOrDefault(i => i.IsEmpty == true);
-        itemCell.ItemSlot = new ItemSlot(itemProvider.Item);
+        itemCell.ItemSlot = new ItemSlot(item);
         
         UpdateViewer(itemCell);
     }
     
-    public void AddExisting(IItemProvider itemProvider)
+    public void AddExisting(Item item)
     {
-        var itemCell = _itemCells.FirstOrDefault(i => i.ItemSlot.Item.ItemType == itemProvider.Item.ItemType);
+        var itemCell = _itemCells.FirstOrDefault(i => i.ItemSlot.Item.Type == item.Type);
         itemCell.ItemSlot.Add();
         
         UpdateViewer(itemCell);

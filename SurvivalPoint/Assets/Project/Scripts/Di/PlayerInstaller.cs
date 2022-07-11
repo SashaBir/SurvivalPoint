@@ -4,7 +4,7 @@ using Zenject;
 public class PlayerInstaller : MonoInstaller
 {
     private PlayerInputSystem _playerInputSystem;
-    private IInventory<IItemProvider> _inventory;
+    private IInventory<Item> _inventory;
     
     public override void InstallBindings()
     {
@@ -26,7 +26,7 @@ public class PlayerInstaller : MonoInstaller
     private void BindInventory()
     {
         Container
-            .Bind<IInventory<IItemProvider>>()
+            .Bind<IInventory<Item>>()
             .FromInstance(_inventory)
             .AsCached();
     }

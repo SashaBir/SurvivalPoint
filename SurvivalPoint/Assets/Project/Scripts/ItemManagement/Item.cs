@@ -8,5 +8,5 @@ public struct Item
     
     [field: SerializeField] public Sprite Icon { get; private set; }
 
-    [field: SerializeField] public ItemType ItemType { get; private set; }
+    [field: SerializeField] public ItemType Type { get; private set; }
 }

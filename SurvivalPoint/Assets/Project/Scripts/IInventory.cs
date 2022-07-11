@@ -8,5 +8,5 @@ public interface IInventory<T>
 
     void Add(T item);
 
-    void Remove(T item);
+    void Remove(T tem);
 }

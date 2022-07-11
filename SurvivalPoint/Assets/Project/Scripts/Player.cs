@@ -11,13 +11,13 @@ public class Player : MonoBehaviour
     [SerializeField] private Shooting _shooting;
 
     [Header("Ui")] 
-    [SerializeField] private UiInventory _uiInventory;
+    [SerializeField] private PlayerInventory _playerInventory;
 
-    private IInventory<IItemProvider> _inventory;
+    private IInventory<Item> _inventory;
     private PlayerInputSystem _playerInputSystem;
 
     [Inject]
-    private void Construct(IInventory<IItemProvider>  inventory, PlayerInputSystem playerInputSystem)
+    private void Construct(IInventory<Item>  inventory, PlayerInputSystem playerInputSystem)
     {
         _inventory = inventory;
         _playerInputSystem = playerInputSystem;
@@ -37,13 +37,13 @@ public class Player : MonoBehaviour
 
         _playerInputSystem.Player.Fire.performed += _ =>
         {
-            IShootable shootable = _uiInventory.Current?.GetComponent<IShootable>();
+            IShootable shootable = _playerInventory.Current?.GetComponent<IShootable>();
             if (shootable is null)
             {
                 return;
             }
             
-            shootable = _uiInventory.TakeCurrent<IShootable>();
+            shootable = _playerInventory.TakeCurrent<IShootable>();
 
             Vector2 targetOnScreen = Mouse.current.position.ReadValue();
             Vector2 target = Camera.main.ScreenToWorldPoint(targetOnScreen);
@@ -61,9 +61,9 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out IItemProvider item) == true)
+        if (collider.TryGetComponent(out IItemProvider itemProvider) == true)
         {
-            _inventory.Add(item);
+            _inventory.Add(itemProvider.Item);
         }
     }
 }

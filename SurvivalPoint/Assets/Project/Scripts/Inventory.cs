@@ -1,46 +1,46 @@
 using System;
 using System.Collections.Generic;
 
-public class Inventory : IInventory<IItemProvider>
+public class Inventory : IInventory<Item>
 {
-    public event Action<IItemProvider> OnAdded = delegate { };
+    public event Action<Item> OnAdded = delegate { };
 
-    public event Action<IItemProvider> OnRemoved = delegate { };
+    public event Action<Item> OnRemoved = delegate { };
 
-    private readonly IList<IItemProvider> _items;
+    private readonly IList<Item> _items;
 
     private uint _lenght;
 
     public Inventory(int lenght = 0)
     {
         _lenght = (uint)lenght;
-        _items = new List<IItemProvider>(lenght);
+        _items = new List<Item>(lenght);
     }
 
-    public void Add(IItemProvider itemProvider)
+    public void Add(Item item)
     {
         if (_lenght == 0)
         {
             return;
         }
         
-        _items.Add(itemProvider);
-        OnAdded.Invoke(itemProvider);
+        _items.Add(item);
+        OnAdded.Invoke(item);
     }
 
-    public void Remove(IItemProvider itemProvider)
+    public void Remove(Item item)
     {
         if (_lenght == 0)
         {
             return;
         }
 
-        if (_items.Contains(itemProvider) == false)
+        if (_items.Contains(item) == false)
         {
             throw new Exception("Item is not exists!");
         }
 
-        OnRemoved.Invoke(itemProvider);
-        _items.Remove(itemProvider);
+        OnRemoved.Invoke(item);
+        _items.Remove(item);
     }
 }

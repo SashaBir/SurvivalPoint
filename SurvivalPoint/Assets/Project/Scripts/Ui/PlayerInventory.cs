@@ -3,15 +3,15 @@ using UnityEngine;
 using Zenject;
 
 
-public class UiInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private SelectionColorItem _selectionColorItem;
     [SerializeField] private ItemCellCollection _itemCellCollection;
     
-    private IInventory<IItemProvider> _inventory;
-
+    private IInventory<Item> _inventory;
+//
     [Inject]
-    private void Construct(IInventory<IItemProvider> inventory)
+    private void Construct(IInventory<Item> inventory)
     {
         _inventory = inventory;
     }
@@ -43,16 +43,15 @@ public class UiInventory : MonoBehaviour
         T result = Current.GetComponent<T>();
         IItemProvider itemProvider = Current.GetComponent<IItemProvider>();
 
-        
         return result;
     }
 
-    private void Add(IItemProvider itemProvider)
+    private void Add(Item itemProvider)
     {
         _itemCellCollection.Add(itemProvider);
     }
     
-    private void Remove(IItemProvider itemProvider)
+    private void Remove(Item itemProvider)
     {
         print("Remove");
     }

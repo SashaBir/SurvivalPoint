@@ -37,18 +37,10 @@ public class Player : MonoBehaviour
 
         _playerInputSystem.Player.Fire.performed += _ =>
         {
-            IShootable shootable = _playerInventory.Current?.GetComponent<IShootable>();
-            if (shootable is null)
-            {
-                return;
-            }
-            
-            shootable = _playerInventory.TakeCurrent<IShootable>();
-
             Vector2 targetOnScreen = Mouse.current.position.ReadValue();
             Vector2 target = Camera.main.ScreenToWorldPoint(targetOnScreen);
             
-            _shooting.Shoot(shootable, target);
+            //_shooting.Shoot(shootable, target);
         };
         
         _playerInputSystem.Enable();
@@ -63,7 +55,8 @@ public class Player : MonoBehaviour
     {
         if (collider.TryGetComponent(out IItemProvider itemProvider) == true)
         {
-            _inventory.Add(itemProvider.Item);
+            _inventory.Add(itemProvider.Item); 
+            Destroy(collider.gameObject, 2f);
         }
     }
 }

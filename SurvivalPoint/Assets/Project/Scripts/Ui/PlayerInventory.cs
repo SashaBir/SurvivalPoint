@@ -38,14 +38,6 @@ public class PlayerInventory : MonoBehaviour
 
     public GameObject Current { get; private set; }
 
-    public T TakeCurrent<T>() where T : class
-    {
-        T result = Current.GetComponent<T>();
-        IItemProvider itemProvider = Current.GetComponent<IItemProvider>();
-
-        return result;
-    }
-
     private void Add(Item itemProvider)
     {
         _itemCellCollection.Add(itemProvider);
@@ -58,6 +50,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void SetCurrent(ItemSlot itemSlot)
     {
-        Current = itemSlot?.Item.Prefab;
+        Current = itemSlot.Item.Prefab;
+        print(Current);
     }
 }

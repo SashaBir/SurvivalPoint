@@ -7,11 +7,13 @@ public class Shooting : MonoBehaviour
 
     public void Shoot(IShootable shootable, Vector2 target)
     {
+        shootable = Instantiate(shootable.SelfRigidbody.gameObject, transform.position, Quaternion.identity).GetComponent<IShootable>();
+        
         Rigidbody2D rigidbody = shootable.SelfRigidbody;
         float lenght = shootable.Lenght;
 
         Vector2 direction = target - rigidbody.position;
-        float force = Calculator.GetForceWithMass(rigidbody.mass, lenght, rigidbody.gravityScale);
+        float force = Calculator.GetForceWithMass(rigidbody.mass, lenght);
         
         rigidbody.AddForce(direction.normalized * force, _forceMode);
         

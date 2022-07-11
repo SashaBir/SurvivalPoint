@@ -37,13 +37,13 @@ public class Player : MonoBehaviour
 
         _playerInputSystem.Player.Fire.performed += _ =>
         {
-            IShootable shootable = _uiInventory.Current?.ItemConvert<IShootable>();
+            IShootable shootable = _uiInventory.Current?.GetComponent<IShootable>();
             if (shootable is null)
             {
                 return;
             }
             
-            shootable = _uiInventory.TakeCurrent().ItemConvert<IShootable>();
+            shootable = _uiInventory.TakeCurrent<IShootable>();
 
             Vector2 targetOnScreen = Mouse.current.position.ReadValue();
             Vector2 target = Camera.main.ScreenToWorldPoint(targetOnScreen);

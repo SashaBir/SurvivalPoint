@@ -41,8 +41,6 @@ public class ItemCellCollection
         itemCell.ItemSlot = new ItemSlot(itemProvider.Item);
         
         UpdateViewer(itemCell);
-        
-        Debug.Log("AddNew");
     }
     
     public void AddExisting(IItemProvider itemProvider)
@@ -51,8 +49,11 @@ public class ItemCellCollection
         itemCell.ItemSlot.Add();
         
         UpdateViewer(itemCell);
+    }
+
+    public void Remove()
+    {
         
-        Debug.Log("AddExisting");
     }
 
     private void UpdateViewer(ItemCell itemCell)

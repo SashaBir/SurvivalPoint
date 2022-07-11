@@ -17,28 +17,34 @@ public class UiInventory : MonoBehaviour
     }
 
     private void OnEnable()
-    {
-        _inventory.OnAdded += Add;
-        _inventory.OnRemoved += Remove;
-        
+    {        
         _selectionColorItem.Enable();
         _itemCellCollection.Enable();
+        
+        _inventory.OnAdded += Add;
+        _inventory.OnRemoved += Remove;
+        _itemCellCollection.OnSelected += SetCurrent;
     }
 
     private void OnDisable()
     {
-        _inventory.OnAdded -= Add;
-        _inventory.OnRemoved -= Remove;
-        
         _selectionColorItem.Disable();
         _itemCellCollection.Disable();
+        
+        _inventory.OnAdded -= Add;
+        _inventory.OnRemoved -= Remove;
+        _itemCellCollection.OnSelected -= SetCurrent;
     }
 
-    public IItemProvider Current { get; private set; }
+    public GameObject Current { get; private set; }
 
-    public IItemProvider TakeCurrent()
+    public T TakeCurrent<T>() where T : class
     {
-        return Current;
+        T result = Current.GetComponent<T>();
+        IItemProvider itemProvider = Current.GetComponent<IItemProvider>();
+
+        
+        return result;
     }
 
     private void Add(IItemProvider itemProvider)
@@ -48,6 +54,11 @@ public class UiInventory : MonoBehaviour
     
     private void Remove(IItemProvider itemProvider)
     {
-        
+        print("Remove");
+    }
+
+    private void SetCurrent(ItemSlot itemSlot)
+    {
+        Current = itemSlot?.Item.Prefab;
     }
 }

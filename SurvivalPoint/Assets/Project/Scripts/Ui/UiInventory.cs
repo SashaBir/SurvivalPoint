@@ -8,10 +8,10 @@ public class UiInventory : MonoBehaviour
     [SerializeField] private SelectionColorItem _selectionColorItem;
     [SerializeField] private ItemCellCollection _itemCellCollection;
     
-    private IInventory<IItem> _inventory;
+    private IInventory<IItemProvider> _inventory;
 
     [Inject]
-    private void Construct(IInventory<IItem> inventory)
+    private void Construct(IInventory<IItemProvider> inventory)
     {
         _inventory = inventory;
     }
@@ -34,19 +34,19 @@ public class UiInventory : MonoBehaviour
         _itemCellCollection.Disable();
     }
 
-    public IItem Current { get; private set; }
+    public IItemProvider Current { get; private set; }
 
-    public IItem TakeCurrent()
+    public IItemProvider TakeCurrent()
     {
         return Current;
     }
 
-    private void Add(IItem item)
+    private void Add(IItemProvider itemProvider)
     {
-        _itemCellCollection.Add(item);
+        _itemCellCollection.Add(itemProvider);
     }
     
-    private void Remove(IItem item)
+    private void Remove(IItemProvider itemProvider)
     {
         
     }

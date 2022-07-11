@@ -1,14 +1,14 @@
 ﻿public class ItemSlot
 {
-    public ItemSlot(IItem item)
+    public ItemSlot(Item item)
     {
         _item = item;
     }
 
-    private readonly IItem _item;
+    private readonly Item _item;
     private int _count = 1;
-
-    public IItem Item => _item;
+    
+    public Item Item => _item;
     
     public int Count => _count;
 

@@ -2,27 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Inventory : IInventory<IItem>
+public class Inventory : IInventory<IItemProvider>
 {
-    public event Action<IItem> OnAdded = delegate { };
+    public event Action<IItemProvider> OnAdded = delegate { };
 
-    public event Action<IItem> OnRemoved = delegate { };
+    public event Action<IItemProvider> OnRemoved = delegate { };
 
-    private readonly IList<IItem> _items;
+    private readonly IList<IItemProvider> _items;
 
     private uint _lenght;
 
     public Inventory(int lenght = 0)
     {
         _lenght = (uint)lenght;
-        _items = new List<IItem>(lenght);
+        _items = new List<IItemProvider>(lenght);
     }
     
     public uint Fullness { get; private set; } = 0;
 
-    public bool IsExist(IItem item)
+    public bool IsExist(IItemProvider itemProvider)
     {
-        return _items.Contains(item);
+        return _items.Contains(itemProvider);
     }
     
     public uint Lenght
@@ -45,7 +45,7 @@ public class Inventory : IInventory<IItem>
         }
     }
 
-    public void Add(IItem item)
+    public void Add(IItemProvider itemProvider)
     {
         if (_lenght == 0)
         {
@@ -59,12 +59,11 @@ public class Inventory : IInventory<IItem>
 
         Fullness++;
 
-        _items.Add(item);
-        OnAdded.Invoke(item);
-        item.Collect();
+        _items.Add(itemProvider);
+        OnAdded.Invoke(itemProvider);
     }
 
-    public void Remove(IItem item)
+    public void Remove(IItemProvider itemProvider)
     {
         if (_lenght == 0)
         {
@@ -76,15 +75,15 @@ public class Inventory : IInventory<IItem>
             return;
         }
 
-        if (_items.Contains(item) == false)
+        if (_items.Contains(itemProvider) == false)
         {
             throw new Exception("Item is not exists!");
         }
         
         Fullness--;
 
-        OnRemoved.Invoke(item);
-        _items.Remove(item);
+        OnRemoved.Invoke(itemProvider);
+        _items.Remove(itemProvider);
     }
 
     public T Get<T>() where T : class

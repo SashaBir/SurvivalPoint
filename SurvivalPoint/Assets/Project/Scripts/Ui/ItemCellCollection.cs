@@ -25,22 +25,25 @@ public class ItemCellCollection
         }
     }
 
-    public void Add(IItem item)
+    public void Add(IItemProvider itemProvider)
     {
-        ItemCell itemCell = _itemCells.FirstOrDefault(i => i.IsEmpty == true);
-        if (itemCell.IsEmpty == true)
-        {
-            Debug.Log("awdwa");
-            itemCell.ItemSlot = new ItemSlot(item);
-            itemCell.UpdateIcon();
-            itemCell.UpdateText();
-            
-            return;
-        }
+        var itemCell = _itemCells
+            .Where(i => i.IsEmpty == false)
+            .FirstOrDefault(i => i.ItemSlot.Item.ItemType == itemProvider.Item.ItemType);
         
-        itemCell.UpdateIcon();
-        itemCell.UpdateText();
+        Action<IItemProvider> action = itemCell == null ? AddNew : AddExisting;
+        action.Invoke(itemProvider);
+    }
+
+    public void AddExisting(IItemProvider itemProvider)
+    {
         
-        itemCell.ItemSlot.Add();
+        
+        Debug.Log("AddExisting");
+    }
+
+    public void AddNew(IItemProvider itemProvider)
+    {
+        Debug.Log("AddNew");
     }
 }

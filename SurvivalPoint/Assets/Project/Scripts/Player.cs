@@ -13,11 +13,11 @@ public class Player : MonoBehaviour
     [Header("Ui")] 
     [SerializeField] private UiInventory _uiInventory;
 
-    private IInventory<IItem> _inventory;
+    private IInventory<IItemProvider> _inventory;
     private PlayerInputSystem _playerInputSystem;
 
     [Inject]
-    private void Construct(IInventory<IItem>  inventory, PlayerInputSystem playerInputSystem)
+    private void Construct(IInventory<IItemProvider>  inventory, PlayerInputSystem playerInputSystem)
     {
         _inventory = inventory;
         _playerInputSystem = playerInputSystem;
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out IItem item) == true)
+        if (collider.TryGetComponent(out IItemProvider item) == true)
         {
             _inventory.Add(item);
         }

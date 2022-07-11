@@ -3,9 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Stick : MonoBehaviour, IItem
 {
-    public GameObject Prefab => gameObject;
+    [SerializeField] private Sprite _sprite;
+    [SerializeField] private GameObject _prefab;
     
-    public Sprite Icon { get; }
+    public GameObject Prefab => _prefab;
+
+    public Sprite Icon => _sprite;
     
     public void Collect()
     {

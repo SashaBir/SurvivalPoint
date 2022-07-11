@@ -16,7 +16,7 @@ public class Health : MonoBehaviour, IHealable<int>, IDamageable<int>, IExecutor
         _health -= value;
         if (_health <= 0)
         {
-            ExecutableBeforeDestroyed.Invoke();
+            ExecutableBeforeDestroyed?.Invoke();
             Destroy(gameObject);
         }
     }

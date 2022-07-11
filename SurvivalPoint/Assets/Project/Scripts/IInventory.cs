@@ -1,12 +1,20 @@
 ﻿using System;
 
-public interface IInventory
+public interface IInventory<T>
 {
-    event Action<IItem> Action; 
+    uint Lenght { get; set; }
 
-    void Add(IItem item);
+    uint Fullness { get; }
 
-    T Get<T>() where T : class;
+    bool IsEmpty => Fullness == 0 && Lenght != 0;
     
-    void Remove(IItem item);
+    event Action<T> OnAdded; 
+    
+    event Action<T> OnRemoved;
+
+    void Add(T item);
+
+    void Remove(T item);
+
+    TOther Get<TOther>() where TOther : class;
 }

@@ -4,12 +4,12 @@ using Zenject;
 public class PlayerInstaller : MonoInstaller
 {
     private PlayerInputSystem _playerInputSystem;
-    private IInventory _inventory;
+    private IInventory<IItem> _inventory;
     
     public override void InstallBindings()
     {
         _playerInputSystem = new PlayerInputSystem();
-        _inventory = new Inventory();
+        _inventory = new Inventory(7);
             
         BindInputSystem();
         BindInventory();
@@ -19,13 +19,15 @@ public class PlayerInstaller : MonoInstaller
     {
         Container
             .Bind<PlayerInputSystem>()
-            .FromInstance(_playerInputSystem);
+            .FromInstance(_playerInputSystem)
+            .AsCached();
     }
     
     private void BindInventory()
     {
         Container
-            .Bind<IInventory>()
-            .FromInstance(_inventory);
+            .Bind<IInventory<IItem>>()
+            .FromInstance(_inventory)
+            .AsCached();
     }
 }

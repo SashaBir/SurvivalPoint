@@ -13,11 +13,11 @@ public class Player : MonoBehaviour
     [Header("Ui")] 
     [SerializeField] private UiInventory _uiInventory;
 
-    private IInventory _inventory;
+    private IInventory<IItem> _inventory;
     private PlayerInputSystem _playerInputSystem;
 
     [Inject]
-    private void Construct(IInventory inventory, PlayerInputSystem playerInputSystem)
+    private void Construct(IInventory<IItem>  inventory, PlayerInputSystem playerInputSystem)
     {
         _inventory = inventory;
         _playerInputSystem = playerInputSystem;
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 
         _playerInputSystem.Player.Fire.performed += _ =>
         {
-            IShootable shootable = _uiInventory.Current.ItemConvert<IShootable>();
+            IShootable shootable = _uiInventory.Current?.ItemConvert<IShootable>();
             if (shootable is null)
             {
                 return;

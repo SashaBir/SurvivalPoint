@@ -1031,8 +1031,10 @@ MonoBehaviour:
   _items:
   - {fileID: 8605150712755938550, guid: 9e12df7f056b98647b0a88711614f8e9, type: 3}
   - {fileID: 202508007759103672, guid: 2f0c25c5450d5fb45965441ee8c78d34, type: 3}
+  - {fileID: 8605150712755938550, guid: 9e12df7f056b98647b0a88711614f8e9, type: 3}
+  - {fileID: 202508007759103672, guid: 2f0c25c5450d5fb45965441ee8c78d34, type: 3}
   _ratio: 1
-  _radius: 2
+  _radius: 1
 --- !u!1 &735916623
 GameObject:
   m_ObjectHideFlags: 0

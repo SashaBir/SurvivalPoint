@@ -35,15 +35,29 @@ public class ItemCellCollection
         action.Invoke(itemProvider);
     }
 
+    public void AddNew(IItemProvider itemProvider)
+    {
+        var itemCell = _itemCells.FirstOrDefault(i => i.IsEmpty == true);
+        itemCell.ItemSlot = new ItemSlot(itemProvider.Item);
+        
+        UpdateViewer(itemCell);
+        
+        Debug.Log("AddNew");
+    }
+    
     public void AddExisting(IItemProvider itemProvider)
     {
+        var itemCell = _itemCells.FirstOrDefault(i => i.ItemSlot.Item.ItemType == itemProvider.Item.ItemType);
+        itemCell.ItemSlot.Add();
         
+        UpdateViewer(itemCell);
         
         Debug.Log("AddExisting");
     }
 
-    public void AddNew(IItemProvider itemProvider)
+    private void UpdateViewer(ItemCell itemCell)
     {
-        Debug.Log("AddNew");
+        itemCell.UpdateIcon();
+        itemCell.UpdateText();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,10 +7,12 @@ using UnityEngine.UI;
 public class ItemCell
 {
     [SerializeField] private Button _button;
-    [SerializeField] private Text _text;
+    [SerializeField] private TextMeshProUGUI _text;
     
-    public ItemStack ItemStack { get; set; }
+    public ItemSlot ItemSlot { get; set; }
 
+    public bool IsEmpty => ItemSlot is null;
+    
     public void AddListner(Action action)
     {
         _button.onClick.AddListener(action.Invoke);
@@ -18,5 +21,15 @@ public class ItemCell
     public void RemoveAllListner()
     {
         _button.onClick.RemoveAllListeners();
+    }
+    
+    public void UpdateIcon()
+    {
+        _button.image.sprite = ItemSlot.Item.Icon;
+    }
+    
+    public void UpdateText()
+    {
+        _text.text = ItemSlot.Count.ToString();
     }
 }

@@ -1,6 +1,6 @@
-﻿public class ItemStack
+﻿public class ItemSlot
 {
-    public ItemStack(IItem item)
+    public ItemSlot(IItem item)
     {
         _item = item;
     }
@@ -11,8 +11,6 @@
     public IItem Item => _item;
     
     public int Count => _count;
-    
-    public bool IsEmpty => _count == 0;
 
     public void Add()
     {

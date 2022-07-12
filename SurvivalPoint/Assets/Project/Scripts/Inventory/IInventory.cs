@@ -1,6 +1,6 @@
 ﻿using System;
 
-public interface IInventory<T>
+public interface IInventory<T> where T : IInventoryElement
 {
     event Action<T> OnAdded; 
     
@@ -8,5 +8,5 @@ public interface IInventory<T>
 
     void Add(T item);
 
-    void Remove(T tem);
+    void Remove(T item);
 }

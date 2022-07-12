@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IShootable
+public interface IShootable : IItem
 {
     Rigidbody2D SelfRigidbody { get; }
     

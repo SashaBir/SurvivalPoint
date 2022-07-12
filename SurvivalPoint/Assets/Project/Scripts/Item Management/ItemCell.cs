@@ -11,7 +11,7 @@ public class ItemCell
     
     public ItemSlot ItemSlot { get; set; }
 
-    public bool IsEmpty => ItemSlot is null;
+    public bool IsEmpty => ItemSlot is null || ItemSlot.Count == 0;
     
     public void AddListner(Action action)
     {
@@ -25,11 +25,15 @@ public class ItemCell
     
     public void UpdateIcon()
     {
-        _button.image.sprite = ItemSlot.Item.Icon;
+        Sprite icon = ItemSlot is null ? null : ItemSlot.Item.Icon;
+        
+        _button.image.sprite = icon;
     }
     
     public void UpdateText()
     {
-        _text.text = ItemSlot.Count.ToString();
+        string text = ItemSlot is null ? String.Empty : ItemSlot.Count.ToString();
+        
+        _text.text = text;
     }
 }

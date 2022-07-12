@@ -25,17 +25,26 @@ public class ItemCellCollection
         }
     }
 
-    public void Add(Item item)
+    public void Add(IItem item)
     {
         var itemCell = _itemCells
             .Where(i => i.IsEmpty == false)
             .FirstOrDefault(i => i.ItemSlot.Item.Type == item.Type);
         
-        Action<Item> action = itemCell == null ? AddNew : AddExisting;
+        Action<IItem> action = itemCell == null ? AddNew : AddExisting;
         action.Invoke(item);
     }
+    
+    public void Remove(IItem item)
+    {
+        var itemCell = _itemCells.First(i => i.ItemSlot.Item == item);
+        itemCell.ItemSlot.Reduce();
+        
+        Action<IItem> action = itemCell.IsEmpty == true ? RemoveFull : RemoveExisting;
+        action.Invoke(itemCell.ItemSlot.Item);
+    }
 
-    public void AddNew(Item item)
+    private void AddNew(IItem item)
     {
         var itemCell = _itemCells.FirstOrDefault(i => i.IsEmpty == true);
         itemCell.ItemSlot = new ItemSlot(item);
@@ -43,17 +52,28 @@ public class ItemCellCollection
         UpdateViewer(itemCell);
     }
     
-    public void AddExisting(Item item)
+    private void AddExisting(IItem item)
     {
+        Debug.Log("AddExisting");
         var itemCell = _itemCells.FirstOrDefault(i => i.ItemSlot.Item.Type == item.Type);
         itemCell.ItemSlot.Add();
         
         UpdateViewer(itemCell);
     }
-
-    public void Remove()
+    
+    private void RemoveFull(IItem item)
     {
-        
+        Debug.Log("RemoveFull");
+        var itemCell = _itemCells.First(i => i.ItemSlot.Item == item);
+        itemCell.ItemSlot = null;
+            
+        UpdateViewer(itemCell);
+    }
+    
+    private void RemoveExisting(IItem item)
+    {
+        var itemCell = _itemCells.First(i => i.ItemSlot.Item == item);
+        UpdateViewer(itemCell);
     }
 
     private void UpdateViewer(ItemCell itemCell)

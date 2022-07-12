@@ -2,16 +2,15 @@
 using UnityEngine;
 using Zenject;
 
-
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private SelectionColorItem _selectionColorItem;
     [SerializeField] private ItemCellCollection _itemCellCollection;
     
-    private IInventory<Item> _inventory;
-//
+    private IInventory<IItem> _inventory;
+
     [Inject]
-    private void Construct(IInventory<Item> inventory)
+    private void Construct(IInventory<IItem> inventory)
     {
         _inventory = inventory;
     }
@@ -23,6 +22,7 @@ public class PlayerInventory : MonoBehaviour
         
         _inventory.OnAdded += Add;
         _inventory.OnRemoved += Remove;
+        
         _itemCellCollection.OnSelected += SetCurrent;
     }
 
@@ -33,24 +33,31 @@ public class PlayerInventory : MonoBehaviour
         
         _inventory.OnAdded -= Add;
         _inventory.OnRemoved -= Remove;
+        
         _itemCellCollection.OnSelected -= SetCurrent;
     }
 
-    public GameObject Current { get; private set; }
+    public IItem Current { get; private set; }
 
-    private void Add(Item itemProvider)
+    public void KickCurrent()
     {
-        _itemCellCollection.Add(itemProvider);
+        _inventory.Remove(Current);
+    }
+
+    private void Add(IItem item)
+    {
+        _itemCellCollection.Add(item);
     }
     
-    private void Remove(Item itemProvider)
+    private void Remove(IItem item)
     {
         print("Remove");
+        _itemCellCollection.Remove(Current);
     }
 
     private void SetCurrent(ItemSlot itemSlot)
     {
-        Current = itemSlot.Item.Prefab;
+        Current = itemSlot?.Item;
         print(Current);
     }
 }

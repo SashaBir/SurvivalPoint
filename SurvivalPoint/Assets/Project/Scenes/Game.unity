@@ -1871,7 +1871,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movement: {fileID: 1293607330}
   _shooting: {fileID: 1293607331}
-  playerInventory: {fileID: 1293607332}
+  _playerInventory: {fileID: 1293607332}
 --- !u!114 &1293607330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1897,6 +1897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854e6eef094841829f49d453f3ac006c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minimumRadius: 2
   _forceMode: 1
 --- !u!114 &1293607332
 MonoBehaviour:

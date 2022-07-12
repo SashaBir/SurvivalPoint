@@ -13,11 +13,11 @@ public class Player : MonoBehaviour
     [Header("Ui")] 
     [SerializeField] private PlayerInventory _playerInventory;
 
-    private IInventory<Item> _inventory;
+    private IInventory<IItem> _inventory;
     private PlayerInputSystem _playerInputSystem;
 
     [Inject]
-    private void Construct(IInventory<Item>  inventory, PlayerInputSystem playerInputSystem)
+    private void Construct(IInventory<IItem>  inventory, PlayerInputSystem playerInputSystem)
     {
         _inventory = inventory;
         _playerInputSystem = playerInputSystem;
@@ -37,10 +37,18 @@ public class Player : MonoBehaviour
 
         _playerInputSystem.Player.Fire.performed += _ =>
         {
+            IShootable shootable = _playerInventory.Current?.Self.GetComponent<IShootable>();
+            if (shootable is null)
+            {
+                return;
+            }
+
+            _playerInventory.KickCurrent();
+            
             Vector2 targetOnScreen = Mouse.current.position.ReadValue();
             Vector2 target = Camera.main.ScreenToWorldPoint(targetOnScreen);
             
-            //_shooting.Shoot(shootable, target);
+            _shooting.Shoot(shootable, target);
         };
         
         _playerInputSystem.Enable();
@@ -53,10 +61,9 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out IItemProvider itemProvider) == true)
+        if (collider.TryGetComponent(out IItem item) == true)
         {
-            _inventory.Add(itemProvider.Item); 
-            Destroy(collider.gameObject, 2f);
+            _inventory.Add(item); 
         }
     }
 }

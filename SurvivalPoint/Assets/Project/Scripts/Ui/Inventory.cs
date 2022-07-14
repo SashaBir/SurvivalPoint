@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour, IInventory<IItem>
     [SerializeField] private ItemCell[] _itemCells;
     
     private ItemCellSelection _itemCellSelection;
+    private ItemCell _currentItemCell;
     
     private void Awake()
     {
@@ -27,8 +28,6 @@ public class Inventory : MonoBehaviour, IInventory<IItem>
         _itemCellSelection.OnSelected -= SetCurrentItemCell;
     }
 
-    private ItemCell _currentItemCell;
-    
     public void Add(IItem item)
     {
         var itemCell = _itemCells.FirstOrDefault(i => i.Type == item.Type);
@@ -46,16 +45,9 @@ public class Inventory : MonoBehaviour, IInventory<IItem>
     public bool TryGetCurrent<TArgument>(out TArgument element)
         where TArgument : IItem
     {
-        var itemCell = _itemCells.FirstOrDefault(i => i.Type == _currentItemCell?.Type);
-        if (itemCell is null)
+        if (_currentItemCell?.Current?.Self.TryGetComponent(out TArgument _) == true)
         {
-            element = default;
-            return false;
-        }
-
-        if (itemCell.Current?.Self.TryGetComponent(out TArgument _) == true)
-        {
-            element = itemCell.Pop().Self.GetComponent<TArgument>();
+            element = _currentItemCell.Pop().Self.GetComponent<TArgument>();
             return true;
         }
 

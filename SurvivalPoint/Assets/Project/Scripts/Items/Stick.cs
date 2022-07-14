@@ -13,12 +13,14 @@ public class Stick : MonoBehaviour, IShootable
     
     [field: SerializeField] public float Lenght { get; private set; }
     
-    public void Show()
+    [field: SerializeField] public bool CanTaken { get; set; }
+    
+    public void Take()
     {
         gameObject.SetActive(true);
     }
 
-    public void Hide()
+    public void Upload()
     {
         gameObject.SetActive(false);
     }

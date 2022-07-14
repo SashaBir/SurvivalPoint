@@ -17,7 +17,7 @@ public class Shooting : MonoBehaviour
         
         float force = Calculator.GetForceWithMass(rigidbody.mass, lenght);
         
-        shootable.Show();
+        shootable.Take();
 
         rigidbody.velocity = Vector2.zero;
         rigidbody.AddForce(direction * force, _forceMode);

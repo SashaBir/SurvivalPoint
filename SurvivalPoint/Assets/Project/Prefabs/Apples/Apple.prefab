@@ -98,6 +98,7 @@ MonoBehaviour:
   <Type>k__BackingField: 1
   <SelfRigidbody>k__BackingField: {fileID: 4088048651987197789}
   <Lenght>k__BackingField: 5
+  <CanTaken>k__BackingField: 1
 --- !u!1 &8605150713003004678
 GameObject:
   m_ObjectHideFlags: 0

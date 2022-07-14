@@ -2,7 +2,9 @@
 
 public interface IInventoryElement
 {
-    void Show();
+    bool CanTaken { get; }
     
-    void Hide();
+    void Take();
+    
+    void Upload();
 }

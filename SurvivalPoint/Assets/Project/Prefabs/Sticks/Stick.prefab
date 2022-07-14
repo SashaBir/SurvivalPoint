@@ -182,3 +182,4 @@ MonoBehaviour:
   <Type>k__BackingField: 2
   <SelfRigidbody>k__BackingField: {fileID: 6798336299999010060}
   <Lenght>k__BackingField: 10
+  <CanTaken>k__BackingField: 1

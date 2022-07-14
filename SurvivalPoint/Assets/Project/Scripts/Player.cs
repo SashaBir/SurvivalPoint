@@ -57,8 +57,13 @@ public class Player : MonoBehaviour
     {
         if (collider.TryGetComponent(out IItem item) == true)
         {
+            if (item.CanTaken == false)
+            {
+                return;
+            }
+            
             _inventory.Add(item); 
-            item.Hide();
+            item.Upload();
         }
     }
 }

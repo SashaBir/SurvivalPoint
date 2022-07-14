@@ -13,7 +13,7 @@ public class Stick : MonoBehaviour, IShootable
     
     [field: SerializeField] public float Lenght { get; private set; }
     
-    [field: SerializeField] public bool CanTaken { get; set; }
+    [field: SerializeField] public bool CanTaken { get; private set; }
     
     public void Take()
     {

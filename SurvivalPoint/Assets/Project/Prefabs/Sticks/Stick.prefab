@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 202508007759103674}
   - component: {fileID: 6798336299999010060}
   - component: {fileID: 202508007759103675}
+  - component: {fileID: 688552904748409374}
   m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
@@ -183,3 +184,16 @@ MonoBehaviour:
   <SelfRigidbody>k__BackingField: {fileID: 6798336299999010060}
   <Lenght>k__BackingField: 10
   <CanTaken>k__BackingField: 1
+--- !u!114 &688552904748409374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202508007759103672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d678d0510a2b487b9a9c13ef4fbe860b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 4

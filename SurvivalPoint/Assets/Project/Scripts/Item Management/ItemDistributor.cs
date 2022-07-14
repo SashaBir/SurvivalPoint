@@ -25,13 +25,12 @@ public class ItemDistributor : MonoBehaviour
         
             Scatter();
         };
-        
-        GetComponent<Health>().Damage(10);
     }
 
     private float RandomCoordinate => UnityEngine.Random.Range(0f, _radius);
     
-    private bool CanScatter => UnityEngine.Random.Range(0f, _ratio) <= _ratio;
+    // from 0f to 1f ratio
+    private bool CanScatter => UnityEngine.Random.Range(0f, 1f) <= _ratio;
 
     private void Scatter()
     {

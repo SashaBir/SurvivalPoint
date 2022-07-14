@@ -1,12 +1,10 @@
 ﻿using System;
 
-public interface IInventory<T> where T : IInventoryElement
+public interface IInventory<in T> 
+    where T : IInventoryElement
 {
-    event Action<T> OnAdded; 
+    bool TryGetCurrent<TArgument>(out TArgument element)
+        where TArgument : T;
     
-    event Action<T> OnRemoved;
-
     void Add(T item);
-
-    void Remove(T item);
 }

@@ -29,16 +29,20 @@ public class ItemDistributor : MonoBehaviour
         GetComponent<Health>().Damage(10);
     }
 
-    private bool CanScatter => UnityEngine.Random.Range(0f, _ratio) <= _ratio;
+    private float RandomCoordinate => UnityEngine.Random.Range(0f, _radius);
     
+    private bool CanScatter => UnityEngine.Random.Range(0f, _ratio) <= _ratio;
+
     private void Scatter()
     {
+        int i = 0;
         foreach (var item in _items)
         {
-            float randomRadius = UnityEngine.Random.Range(0f, _radius);
-            Vector2 position = (Vector2)transform.position + Vector2.one * randomRadius;
+            Vector2 position = (Vector2)transform.position + new Vector2(RandomCoordinate, RandomCoordinate);
 
             var go = Instantiate(item, position, Quaternion.identity);
+            go.name = i.ToString();
+            i++;
         }
     }
 }

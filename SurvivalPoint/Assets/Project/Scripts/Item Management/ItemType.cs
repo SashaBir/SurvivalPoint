@@ -1,5 +1,6 @@
 ﻿public enum ItemType
 {
-    Apple = 0,
+    NonType,
+    Apple,
     Stick
 }

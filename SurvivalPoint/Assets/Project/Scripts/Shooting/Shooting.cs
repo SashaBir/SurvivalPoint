@@ -11,22 +11,22 @@ public class Shooting : MonoBehaviour
         Rigidbody2D rigidbody = shootable.SelfRigidbody;
         float lenght = shootable.Lenght;
 
-        Vector2 direction = (target - rigidbody.position).normalized;
+        Vector2 direction = (target - (Vector2)transform.position).normalized;
         
-        MoveToMinimumAttackedRadius(shootable.Self.transform, direction);
+        shootable.Self.transform.position = PositionMinimumAttackedRadius(direction);
         
         float force = Calculator.GetForceWithMass(rigidbody.mass, lenght);
-
-        shootable.Show();
         
+        shootable.Show();
+
+        rigidbody.velocity = Vector2.zero;
         rigidbody.AddForce(direction * force, _forceMode);
         
-        Debug.Log($"Shoot to {direction} by {gameObject.name}.");
+        ///Debug.Log($"Shoot to {direction} by {gameObject.name}.");
     }
 
-    private void MoveToMinimumAttackedRadius(Transform transform, Vector2 direction)
+    private Vector2 PositionMinimumAttackedRadius(Vector2 direction)
     {
-        Vector2 position = (Vector2)transform.position + direction * _minimumRadius;
-        transform.position = position;
+        return (Vector2)transform.position + direction * _minimumRadius;
     }
 }

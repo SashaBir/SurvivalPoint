@@ -1,39 +1,48 @@
 ﻿using System;
-using TMPro;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 [Serializable]
 public class ItemCell
 {
-    [SerializeField] private Button _button;
-    [SerializeField] private TextMeshProUGUI _text;
-    
-    public ItemSlot ItemSlot { get; set; }
+    [SerializeField] private ItemCellViewer _viewer;
 
-    public bool IsEmpty => ItemSlot is null || ItemSlot.Count == 0;
+    private readonly ItemSlotModel _model = new ItemSlotModel();
+
+    public IItem Current => _model.Items?.FirstOrDefault();
     
-    public void AddListner(Action action)
+    public ItemType Type => _model.Items?.FirstOrDefault()?.Type ?? ItemType.NonType;
+
+    public bool IsEmpty => _model.Count == 0;
+    
+    public Action Listner
     {
-        _button.onClick.AddListener(action.Invoke);
+        set => _viewer.AddListner(value);
     }
-    
-    public void RemoveAllListner()
+
+    public void Add(IItem item)
     {
-        _button.onClick.RemoveAllListeners();
-    }
-    
-    public void UpdateIcon()
-    {
-        Sprite icon = ItemSlot is null ? null : ItemSlot.Item.Icon;
+        if (_model.Count == 0)
+        {
+            _viewer.Picture = item.Icon;
+        }
         
-        _button.image.sprite = icon;
+        _model.Add(item);
+        _viewer.Count = _model.Count;
     }
     
-    public void UpdateText()
+    public IItem Pop()
     {
-        string text = ItemSlot is null ? String.Empty : ItemSlot.Count.ToString();
+        var item = _model.Get();
         
-        _text.text = text;
+        if (IsEmpty == true)
+        {
+            _viewer.Count = 0;
+            _viewer.Picture = null;
+        }
+        
+        _viewer.Count = _model.Count;
+        
+        return item;
     }
 }

@@ -10,14 +10,11 @@ public class Player : MonoBehaviour
     [SerializeField] private Movement _movement;
     [SerializeField] private Shooting _shooting;
 
-    [Header("Ui")] 
-    [SerializeField] private PlayerInventory _playerInventory;
-
     private IInventory<IItem> _inventory;
     private PlayerInputSystem _playerInputSystem;
 
     [Inject]
-    private void Construct(IInventory<IItem>  inventory, PlayerInputSystem playerInputSystem)
+    private void Construct(IInventory<IItem> inventory, PlayerInputSystem playerInputSystem)
     {
         _inventory = inventory;
         _playerInputSystem = playerInputSystem;
@@ -37,14 +34,11 @@ public class Player : MonoBehaviour
 
         _playerInputSystem.Player.Fire.performed += _ =>
         {
-            IShootable shootable = _playerInventory.Current?.Self.GetComponent<IShootable>();
-            if (shootable is null)
+            if (_inventory.TryGetCurrent(out IShootable shootable) == false)
             {
                 return;
             }
 
-            _playerInventory.KickCurrent();
-            
             Vector2 targetOnScreen = Mouse.current.position.ReadValue();
             Vector2 target = Camera.main.ScreenToWorldPoint(targetOnScreen);
             
@@ -64,6 +58,7 @@ public class Player : MonoBehaviour
         if (collider.TryGetComponent(out IItem item) == true)
         {
             _inventory.Add(item); 
+            item.Hide();
         }
     }
 }

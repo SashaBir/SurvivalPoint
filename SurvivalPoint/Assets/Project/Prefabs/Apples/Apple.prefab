@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 21300000, guid: 4ddf0c1d7b4c1a146ba3e81f19123421, type: 3}
-  <Type>k__BackingField: 0
+  <Type>k__BackingField: 1
   <SelfRigidbody>k__BackingField: {fileID: 4088048651987197789}
   <Lenght>k__BackingField: 5
 --- !u!1 &8605150713003004678

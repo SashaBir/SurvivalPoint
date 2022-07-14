@@ -1,4 +1,6 @@
-﻿public interface IInventoryElement
+﻿using UnityEngine;
+
+public interface IInventoryElement
 {
     void Show();
     

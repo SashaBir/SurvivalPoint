@@ -28,4 +28,10 @@ public class ItemCellViewer
     {
         set => _text.text = value.ToString();
     }
+
+    public void Clear()
+    {
+        Count = 0;
+        Picture = null;
+    }
 }

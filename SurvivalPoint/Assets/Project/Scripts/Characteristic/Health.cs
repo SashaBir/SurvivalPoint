@@ -8,11 +8,6 @@ public class Health : MonoBehaviour, IHealable<int>, IDamageable<int>, IExecutor
 
     public event Action<int> OnChanged = delegate { }; 
 
-    private void Awake()
-    {
-        InitialHealth = _health;
-    }
-
     public void Heal(int value)
     {
         _health += value;
@@ -34,6 +29,4 @@ public class Health : MonoBehaviour, IHealable<int>, IDamageable<int>, IExecutor
     }
 
     public Action ExecutableBeforeDestroyed { private get; set; }
-
-    public int InitialHealth { get; private set; }
 }

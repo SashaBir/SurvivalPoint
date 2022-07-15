@@ -37,8 +37,7 @@ public class ItemCell
         
         if (IsEmpty == true)
         {
-            _viewer.Count = 0;
-            _viewer.Picture = null;
+            _viewer.Clear();
         }
         
         _viewer.Count = _model.Count;

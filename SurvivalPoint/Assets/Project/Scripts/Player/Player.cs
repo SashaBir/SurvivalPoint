@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [Header("Gameplay")]
     [SerializeField] private Movement _movement;
     [SerializeField] private Shooting _shooting;
+    [SerializeField] private Eating _eating;
 
     private IInventory<IItem> _inventory;
     private PlayerInputSystem _playerInputSystem;

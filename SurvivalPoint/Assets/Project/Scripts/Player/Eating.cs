@@ -4,21 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class HealthBar : MonoBehaviour
-{
-    [SerializeField] private Health _health;
-
-    private void OnEnable()
-    {
-        _health.OnChanged += UpdateHealth;
-    }
-
-    private void UpdateHealth(int health)
-    {
-        
-    }
-}
-
 [Serializable]
 public class Eating
 {

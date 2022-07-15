@@ -1,37 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-[Serializable]
-public class Eating
+public class Eating : MonoBehaviour
 {
-    [SerializeField] private HealthBar _healthBar;
-    
-    private IEnumerable<ItemCell> _itemCells;
+    private IInventoryElementCollection<IItem> _elements;
     private PlayerInputSystem _playerInputSystem;
     
-    public void Initialize(IEnumerable<ItemCell> itemCells)
+    [Inject]
+    public void Construct(IInventoryElementCollection<IItem> elements, PlayerInputSystem playerInputSystem)
     {
-        _itemCells = itemCells;
+        _elements = elements;
+        _playerInputSystem = playerInputSystem;
+        
+        _playerInputSystem.Player.Health.performed += Eat;
     }
 
     ~Eating()
     {
         _playerInputSystem.Player.Health.performed -= Eat;
     }
-    
-    [Inject]
-    private void Construct(PlayerInputSystem playerInputSystem)
-    {
-        _playerInputSystem = playerInputSystem;
-        _playerInputSystem.Player.Health.performed += Eat;
-    }
-    
 
     private void Eat(InputAction.CallbackContext _)
     {
-        
+
+        Debug.Log("Eat!");
     }
 }

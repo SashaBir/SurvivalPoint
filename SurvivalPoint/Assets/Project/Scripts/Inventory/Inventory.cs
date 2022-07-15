@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour, IInventory<IItem>
+public class Inventory : MonoBehaviour, IInventory<IItem>, IInventoryElementCollection<IItem>
 {
     [SerializeField] private SelectionColorItem _selectionColorItem;
     [SerializeField] private ItemCell[] _itemCells;
@@ -28,6 +29,8 @@ public class Inventory : MonoBehaviour, IInventory<IItem>
         _itemCellSelection.OnSelected -= SetCurrentItemCell;
     }
 
+    public IEnumerable<IItem> Collection { get; }
+    
     public void Add(IItem item)
     {
         var itemCell = _itemCells.FirstOrDefault(i => i.Type == item.Type);

@@ -60,8 +60,8 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""id"": ""da66423a-6d25-4019-afde-f8f2835bab2b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [

@@ -2049,6 +2049,8 @@ GameObject:
   - component: {fileID: 1293607331}
   - component: {fileID: 1293607332}
   - component: {fileID: 1293607333}
+  - component: {fileID: 1293607334}
+  - component: {fileID: 1293607335}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2184,6 +2186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movement: {fileID: 1293607330}
   _shooting: {fileID: 1293607331}
+  _eating: {fileID: 0}
 --- !u!114 &1293607330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2269,6 +2272,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 5
+--- !u!114 &1293607334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293607324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258c47c3b5104472a7db8e41dc02d59f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _images:
+  - {fileID: 1173998401}
+  - {fileID: 705033851}
+  - {fileID: 1856302762}
+  - {fileID: 2136748416}
+  - {fileID: 965399359}
+--- !u!114 &1293607335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293607324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 958505f1f254493ca9f420dcf27e756e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthBar: {fileID: 1293607334}
 --- !u!1 &1390704461
 GameObject:
   m_ObjectHideFlags: 0

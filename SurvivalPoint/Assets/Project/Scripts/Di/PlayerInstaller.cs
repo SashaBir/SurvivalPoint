@@ -12,6 +12,7 @@ public class PlayerInstaller : MonoInstaller
         _playerInputSystem = new PlayerInputSystem();
             
         BindInventory();
+        BindInventoryElementCollection();
         BindInputSystem();
     }
 
@@ -19,6 +20,14 @@ public class PlayerInstaller : MonoInstaller
     {
         Container
             .Bind<IInventory<IItem>>()
+            .FromInstance(_inventory)
+            .AsCached();
+    }
+    
+    private void BindInventoryElementCollection()
+    {
+        Container
+            .Bind<IInventoryElementCollection<IItem>>()
             .FromInstance(_inventory)
             .AsCached();
     }

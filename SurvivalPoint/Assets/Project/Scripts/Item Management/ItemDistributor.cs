@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(IExecutorLastAction))]
 public class ItemDistributor : MonoBehaviour
@@ -12,7 +13,14 @@ public class ItemDistributor : MonoBehaviour
     [SerializeField] private float _radius;
 
     private IExecutorLastAction _executorLastAction;
+    private DiContainer _diContainer;
 
+    [Inject]
+    private void Construct(DiContainer diContainer)
+    {
+        _diContainer = diContainer;
+    }
+    
     private void Awake()
     {
         _executorLastAction = GetComponent<IExecutorLastAction>();
@@ -34,14 +42,11 @@ public class ItemDistributor : MonoBehaviour
 
     private void Scatter()
     {
-        int i = 0;
         foreach (var item in _items)
         {
             Vector2 position = (Vector2)transform.position + new Vector2(RandomCoordinate, RandomCoordinate);
-
-            var go = Instantiate(item, position, Quaternion.identity);
-            go.name = i.ToString();
-            i++;
+            
+            var go = _diContainer.InstantiatePrefab(item, position, Quaternion.identity, null);
         }
     }
 }

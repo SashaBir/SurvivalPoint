@@ -11,7 +11,11 @@ public class Stick : MonoBehaviour, IShootable
 
     [field: SerializeField] public Rigidbody2D SelfRigidbody { get; private set; }
     
+    [field: SerializeField] public float Speed { get; private set; }
+    
     [field: SerializeField] public float Lenght { get; private set; }
+    
+    [field: SerializeField] public bool IsHitted { get; private set; } = false;
     
     [field: SerializeField] public bool CanTaken { get; private set; }
     

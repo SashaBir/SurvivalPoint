@@ -10,6 +10,11 @@ namespace FastPlatform.Environment
 
         private void LateUpdate()
         {
+            if (_target == null)
+            {
+                return;
+            }
+        
             Vector3 position = _target.position;
             transform.position = new Vector3
             {

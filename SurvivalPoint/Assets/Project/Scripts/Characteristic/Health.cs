@@ -6,6 +6,8 @@ public class Health : MonoBehaviour, IHealable<int>, IDamageable<int>, IExecutor
 {
     [SerializeField] private int _health;
 
+    public Action ExecutableBeforeDestroyed { private get; set; }
+    
     public event Action<int> OnChanged = delegate { }; 
 
     public void Heal(int value)
@@ -20,13 +22,11 @@ public class Health : MonoBehaviour, IHealable<int>, IDamageable<int>, IExecutor
         {
             // 0 - minimum
             OnChanged.Invoke(0);
-            
+
             ExecutableBeforeDestroyed?.Invoke();
             Destroy(gameObject);
         }
-        
+
         OnChanged.Invoke(_health);
     }
-
-    public Action ExecutableBeforeDestroyed { private get; set; }
 }

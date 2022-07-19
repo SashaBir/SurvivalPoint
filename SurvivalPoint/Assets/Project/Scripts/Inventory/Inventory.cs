@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour, IInventory<IItem>, IInventoryElementColl
     private ItemCellSelection _itemCellSelection;
     private ItemCell _currentItemCell;
     
+    public IEnumerable<IItem> Collection { get; }
+    
     private void Awake()
     {
         _itemCellSelection = new ItemCellSelection(_itemCells);
@@ -29,8 +31,6 @@ public class Inventory : MonoBehaviour, IInventory<IItem>, IInventoryElementColl
         _itemCellSelection.OnSelected -= SetCurrentItemCell;
     }
 
-    public IEnumerable<IItem> Collection { get; }
-    
     public void Add(IItem item)
     {
         var itemCell = _itemCells.FirstOrDefault(i => i.Type == item.Type);
@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour, IInventory<IItem>, IInventoryElementColl
     public bool TryGetCurrent<TArgument>(out TArgument element)
         where TArgument : IItem
     {
-        if (_currentItemCell?.Current?.Self.TryGetComponent(out TArgument _) == true)
+        if (_currentItemCell?.Current?.Self?.TryGetComponent(out TArgument _) == true)
         {
             element = _currentItemCell.Pop().Self.GetComponent<TArgument>();
             return true;

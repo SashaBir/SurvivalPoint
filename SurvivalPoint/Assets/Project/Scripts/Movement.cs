@@ -8,6 +8,8 @@ public class Movement : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
     
+    public Vector2 Direction { private get; set; } 
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -17,6 +19,4 @@ public class Movement : MonoBehaviour
     {
         _rigidbody.velocity = Direction * _speed;
     }
-    
-    public Vector2 Direction { private get; set; } 
 }

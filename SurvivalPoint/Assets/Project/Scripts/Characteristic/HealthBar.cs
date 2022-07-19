@@ -18,6 +18,11 @@ public class HealthBar : MonoBehaviour
         _health.OnChanged += UpdateHealth;
     }
 
+    private void OnDisable()
+    {
+        _health.OnChanged -= UpdateHealth;
+    }
+    
     private void UpdateHealth(int health)
     {
         for (int i = 0; i < _images.Length; i++)

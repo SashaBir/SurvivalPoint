@@ -2,5 +2,6 @@
 {
     NonType,
     Apple,
-    Stick
+    Stick,
+    Bullet
 }

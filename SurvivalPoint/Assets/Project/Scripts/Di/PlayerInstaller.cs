@@ -3,6 +3,7 @@ using Zenject;
 
 public class PlayerInstaller : MonoInstaller
 {
+    [SerializeField] private Player _player;
     [SerializeField] private Inventory _inventory;
     
     private PlayerInputSystem _playerInputSystem;
@@ -10,10 +11,11 @@ public class PlayerInstaller : MonoInstaller
     public override void InstallBindings()
     {
         _playerInputSystem = new PlayerInputSystem();
-            
+
         BindInventory();
         BindInventoryElementCollection();
         BindInputSystem();
+        BindPlayer();
     }
 
     private void BindInventory()
@@ -23,7 +25,7 @@ public class PlayerInstaller : MonoInstaller
             .FromInstance(_inventory)
             .AsCached();
     }
-    
+
     private void BindInventoryElementCollection()
     {
         Container
@@ -31,12 +33,20 @@ public class PlayerInstaller : MonoInstaller
             .FromInstance(_inventory)
             .AsCached();
     }
-    
+
     private void BindInputSystem()
     {
         Container
             .Bind<PlayerInputSystem>()
             .FromInstance(_playerInputSystem)
+            .AsCached();
+    }
+
+    private void BindPlayer()
+    {
+        Container
+            .Bind<Player>()
+            .FromInstance(_player)
             .AsCached();
     }
 }
